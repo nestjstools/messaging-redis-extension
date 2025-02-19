@@ -1,0 +1,128 @@
+<p align="center">
+    <image src="nestjstools-logo.png" width="400">
+</p>
+
+# @nestjstools/messaging-redis-extension
+
+A NestJS library for managing asynchronous and synchronous messages with support for buses, handlers, channels, and consumers. This library simplifies building scalable and decoupled applications by facilitating robust message handling pipelines while ensuring flexibility and reliability.
+
+## Installation
+
+```bash
+npm install @nestjstools/messaging @nestjstools/messaging-redis-extension 
+```
+
+or
+
+```bash
+yarn add @nestjstools/messaging @nestjstools/messaging-redis-extension
+```
+## Redis Integration: Messaging Configuration Example
+
+---
+
+```typescript
+import {MessagingModule} from '@nestjstools/messaging';
+import {SendMessageHandler} from './handlers/send-message.handler';
+import {MessagerRedisExtensionModule, RedisChannelConfig} from "@nestjstools/messager-redis-extension";
+
+@Module({
+   imports: [
+      MessagerRedisExtensionModule,
+      MessagingModule.forRoot({
+         buses: [
+            {
+               name: 'message.bus',
+               channels: ['my-channel'],
+            },
+            {
+               name: 'command.bus', //The naming is very flexible
+               channels: ['redis-command'], //be sure if you defined same channels name as you defined below, you can bind multiple channels there, like send message to rabbitmq and redis at the same time 
+            },
+            {
+               name: 'event.bus',
+               channels: ['redis-event'],
+            },
+         ],
+         channels: [
+            new InMemoryChannelConfig({
+               name: 'my-channel',
+               middlewares: [],
+               avoidErrorsForNotExistedHandlers: true,
+            }),
+            new RedisChannelConfig({
+               name: 'redis-command',
+               middlewares: [],
+               avoidErrorsForNotExistedHandlers: false,
+               queue: 'command-queue',
+               connection: {
+                  port: 6379,
+                  host: '127.0.0.1',
+               },
+            }),
+            new RedisChannelConfig({
+               name: 'redis-event',
+               middlewares: [],
+               avoidErrorsForNotExistedHandlers: true,
+               queue: 'event-queue',
+               connection: {
+                  port: 6379,
+                  host: '127.0.0.1',
+               },
+            }),
+         ],
+         debug: true,
+      }),
+   ],
+})
+export class AppModule {
+}
+```
+
+---
+
+### Key Features:
+
+1. **Multiple Message Buses**:
+   - Configure distinct buses for **commands**, and **events**:
+      - `command.bus` (command processing).
+      - `event.bus` (event processing).
+
+2. **In-Memory Channel**:
+   - Simple and lightweight channel suitable for non-persistent messaging or testing purposes.
+
+3. **Redis Channels**:
+   - Fully integrated Redis configuration using `RedisChannelConfig`.
+
+4. **Channel Details**:
+   - `connection`: Specifies the Redis server connection.
+   - `queue`: Specify a Redis queue name to consume messages from.
+
+5. **Error Handling**:
+   - Use `avoidErrorsForNotExistedHandlers` in `redis-event` to gracefully handle missing handlers for event messages.
+
+6. **Debug Mode**:
+   - Enable `debug: true` to assist in monitoring and troubleshooting messages.
+
+This configuration provides a solid foundation for integrating redis as part of your messaging system. It facilitates the decoupling of commands, events, and in-memory operations, ensuring reliable and scalable communication across distributed systems.
+
+---
+
+## Configuration options
+
+### RedisChannel
+
+#### **RedisChannelConfig**
+
+| **Property**                           | **Description**                                                      | **Default Value** |
+|----------------------------------------|----------------------------------------------------------------------|-------------------|
+| **`name`**                             | Name of the Redis channel (e.g., `'redis-command'`).                 |                   |
+| **`connection`**                       | URI for the Redis connection`.                                       |                   |
+| **`queue`**                            | The Redis queue to consume messages from (e.g., `'my_app.command'`). |                   |
+| **`enableConsumer`**                   | Enables or disables the consumer for this channel.                   | `true`            |
+| **`avoidErrorsForNotExistedHandlers`** | Avoid errors if no handler is available for the message.             | `false`           |
+
+---
+
+## Real world working example with RabbitMQ & Redis
+https://github.com/nestjstools/messaging-rabbitmq-example
