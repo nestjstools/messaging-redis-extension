@@ -6,6 +6,13 @@
 
 A NestJS library for managing asynchronous and synchronous messages with support for buses, handlers, channels, and consumers. This library simplifies building scalable and decoupled applications by facilitating robust message handling pipelines while ensuring flexibility and reliability.
 
+---
+## Documentation
+
+https://nestjstools.gitbook.io/nestjstools-messaging-docs
+
+---
+
 ## Installation
 
 ```bash

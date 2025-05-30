@@ -48,12 +48,14 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "bullmq": "^5.52.2"
+    "@semantic-release/github": "^11.0.3",
+    "bullmq": "^5.52.2",
+    "semantic-release": "^24.2.5"
   },
   "peerDependencies": {
-    "@nestjstools/messaging": "^2.X",
     "@nestjs/common": "^10.x||^11.x",
     "@nestjs/core": "^10.x||^11.x",
+    "@nestjstools/messaging": "^2.X",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.x"
   },
