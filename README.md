@@ -31,11 +31,11 @@ yarn add @nestjstools/messaging @nestjstools/messaging-redis-extension
 ```typescript
 import {MessagingModule} from '@nestjstools/messaging';
 import {SendMessageHandler} from './handlers/send-message.handler';
-import {MessagerRedisExtensionModule, RedisChannelConfig} from "@nestjstools/messager-redis-extension";
+import {MessagingRedisExtensionModule, RedisChannelConfig} from '@nestjstools/messaging-redis-extension';
 
 @Module({
    imports: [
-      MessagerRedisExtensionModule,
+      MessagingRedisExtensionModule,
       MessagingModule.forRoot({
          buses: [
             {
