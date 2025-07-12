@@ -29,19 +29,8 @@ interface ConnectionOptions {
   redis: {
     host: string;
     port: number;
-    /**
-     * If set, client will send AUTH command with the value of this option when connected.
-     */
     password?: string;
-    /**
-     * Database index to use.
-     *
-     * @default 0
-     */
     db?: number;
   };
-  /**
-   * Prefix for all queue keys.
-   */
   prefix?: string;
 }
