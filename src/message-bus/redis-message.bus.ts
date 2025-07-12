@@ -5,10 +5,7 @@ import { RedisChannel } from '../channel/redis.channel';
 
 @Injectable()
 export class RedisMessageBus implements IMessageBus {
-  constructor(
-    private readonly redisChannel: RedisChannel,
-  ) {
-  }
+  constructor(private readonly redisChannel: RedisChannel) {}
 
   async dispatch(message: RoutingMessage): Promise<object | void> {
     this.redisChannel.queue.add(message.messageRoutingKey, message.message);

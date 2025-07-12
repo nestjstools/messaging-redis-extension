@@ -8,11 +8,16 @@ import { Worker } from 'bullmq';
 
 @Injectable()
 @MessageConsumer(RedisChannel)
-export class RedisMessagingConsumer implements IMessagingConsumer<RedisChannel>, OnApplicationShutdown {
+export class RedisMessagingConsumer
+  implements IMessagingConsumer<RedisChannel>, OnApplicationShutdown
+{
   private channel?: RedisChannel = undefined;
   private worker?: Worker = undefined;
 
-  async consume(dispatcher: ConsumerMessageDispatcher, channel: RedisChannel): Promise<void> {
+  async consume(
+    dispatcher: ConsumerMessageDispatcher,
+    channel: RedisChannel,
+  ): Promise<void> {
     this.channel = channel;
 
     this.worker = new Worker(
@@ -20,13 +25,19 @@ export class RedisMessagingConsumer implements IMessagingConsumer<RedisChannel>,
       async (job) => {
         dispatcher.dispatch(new ConsumerMessage(job.data, job.name));
       },
-      { connection: channel.config.connection }
+      {
+        connection: channel.config.connectionOptions.redis,
+        prefix: channel.config.connectionOptions.prefix,
+      },
     );
 
     return Promise.resolve();
   }
 
-  onError(errored: ConsumerDispatchedMessageError, channel: RedisChannel): Promise<void> {
+  onError(
+    errored: ConsumerDispatchedMessageError,
+    channel: RedisChannel,
+  ): Promise<void> {
     return Promise.resolve();
   }
 
