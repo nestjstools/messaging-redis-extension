@@ -8,6 +8,9 @@ export class RedisChannel extends Channel<RedisChannelConfig> {
 
   constructor(config: RedisChannelConfig) {
     super(config);
-    this.queue = new Queue(config.queue, { connection: config.connection });
+    this.queue = new Queue(config.queue, {
+      connection: config.connectionOptions.redis,
+      prefix: config.connectionOptions.prefix,
+    });
   }
 }
