@@ -38,10 +38,13 @@ export class RedisMessagingConsumer
     errored: ConsumerDispatchedMessageError,
     channel: RedisChannel,
   ): Promise<void> {
+    void errored;
+    void channel;
     return Promise.resolve();
   }
 
   async onApplicationShutdown(signal?: string): Promise<any> {
+    void signal;
     if (this.channel) {
       await this.worker.close();
       await this.channel.queue.close();

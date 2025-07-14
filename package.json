@@ -1,6 +1,6 @@
 {
   "name": "@nestjstools/messaging-redis-extension",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Extension to handle messages and dispatch them over Redis",
   "author": "Sebastian Iwanczyszyn",
   "private": false,
@@ -35,12 +35,14 @@
   ],
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "prettier": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
+    "prettier:fix": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "ci": "yarn prettier",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
