@@ -50,9 +50,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@semantic-release/github": "^11.0.3",
-    "bullmq": "^5.52.2",
-    "semantic-release": "^24.2.5"
+    "bullmq": "^5.52.2"
   },
   "peerDependencies": {
     "@nestjs/common": "^10.x||^11.x",
@@ -62,6 +60,8 @@
     "rxjs": "^7.x"
   },
   "devDependencies": {
+    "semantic-release": "^24.2.5",
+    "@semantic-release/github": "^11.0.3",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
