@@ -26,8 +26,13 @@ export class RedisMessagingConsumer
         dispatcher.dispatch(new ConsumerMessage(job.data, job.name));
       },
       {
-        connection: channel.config.connectionOptions.redis,
-        prefix: channel.config.connectionOptions.prefix,
+        connection: {
+          host: channel.config.connection.host,
+          port: channel.config.connection.port,
+          password: channel.config.connection.password,
+          db: channel.config.connection.db,
+        },
+        prefix: channel.config.connection.keyPrefix,
       },
     );
 
