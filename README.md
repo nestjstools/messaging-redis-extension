@@ -124,10 +124,11 @@ This configuration provides a solid foundation for integrating redis as part of 
 | **Property**                           | **Description**                                                      | **Default Value** |
 |----------------------------------------|----------------------------------------------------------------------|-------------------|
 | **`name`**                             | Name of the Redis channel (e.g., `'redis-command'`).                 |                   |
-| **`connection`**                       | URI for the Redis connection`.                                       |                   |
+| **`connection`**                       | Redis connection configuration (host, port, password, db).           |                   |
 | **`queue`**                            | The Redis queue to consume messages from (e.g., `'my_app.command'`). |                   |
 | **`enableConsumer`**                   | Enables or disables the consumer for this channel.                   | `true`            |
 | **`avoidErrorsForNotExistedHandlers`** | Avoid errors if no handler is available for the message.             | `false`           |
+| **`keyPrefix`**                        | Optional prefix for keys stored in Redis.                            |                   |
 
 ---
 

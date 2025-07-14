@@ -26,13 +26,8 @@ export class RedisMessagingConsumer
         dispatcher.dispatch(new ConsumerMessage(job.data, job.name));
       },
       {
-        connection: {
-          host: channel.config.connection.host,
-          port: channel.config.connection.port,
-          password: channel.config.connection.password,
-          db: channel.config.connection.db,
-        },
-        prefix: channel.config.connection.keyPrefix,
+        connection: this.channel.config.connection,
+        prefix: channel.config.keyPrefix,
       },
     );
 
@@ -52,11 +47,4 @@ export class RedisMessagingConsumer
       await this.channel.queue.close();
     }
   }
-}
-
-interface RabbitMQMessage {
-  contentType: string;
-  body: object;
-  routingKey: string;
-  headers: { [key: string]: string };
 }

@@ -7,7 +7,7 @@ import { RedisChannel } from '../channel/redis.channel';
 export class RedisMessageBus implements IMessageBus {
   constructor(private readonly redisChannel: RedisChannel) {}
 
-  async dispatch(message: RoutingMessage): Promise<object | void> {
-    this.redisChannel.queue.add(message.messageRoutingKey, message.message);
+  async dispatch(message: RoutingMessage): Promise<void> {
+    await this.redisChannel.queue.add(message.messageRoutingKey, message.message);
   }
 }

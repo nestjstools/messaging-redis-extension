@@ -1,7 +1,9 @@
 import { ChannelConfig } from '@nestjstools/messaging';
+
 export class RedisChannelConfig extends ChannelConfig {
   public readonly connection: Connection;
   public readonly queue: string;
+  public readonly keyPrefix?: string;
 
   constructor({
     name,
@@ -11,6 +13,7 @@ export class RedisChannelConfig extends ChannelConfig {
     avoidErrorsForNotExistedHandlers,
     middlewares,
     normalizer,
+    keyPrefix,
   }: RedisChannelConfig) {
     super(
       name,
@@ -21,6 +24,7 @@ export class RedisChannelConfig extends ChannelConfig {
     );
     this.connection = connection;
     this.queue = queue;
+    this.keyPrefix = keyPrefix;
   }
 }
 
@@ -29,9 +33,4 @@ interface Connection {
   port: number;
   password?: string;
   db?: number;
-  /**
-   * This prefix is not used as RedisOptions keyPrefix, it is used as prefix for BullMQ
-   * Read more: https://github.com/taskforcesh/bullmq/issues/1219#issuecomment-1113903785
-   */
-  keyPrefix?: string;
 }
