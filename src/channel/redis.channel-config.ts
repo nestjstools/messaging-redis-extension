@@ -1,4 +1,5 @@
 import { ChannelConfig } from '@nestjstools/messaging';
+import { KeepJobs } from 'bullmq';
 
 export class RedisChannelConfig extends ChannelConfig {
   public readonly connection: Connection;
@@ -9,6 +10,7 @@ export class RedisChannelConfig extends ChannelConfig {
    * Read more: https://github.com/taskforcesh/bullmq/issues/1219#issuecomment-1113903785
    */
   public readonly keyPrefix?: string;
+  public readonly bullJobOptions?: BullJobOptions;
 
   constructor({
     name,
@@ -38,4 +40,23 @@ interface Connection {
   port: number;
   password?: string;
   db?: number;
+}
+
+interface BullJobOptions {
+  /**
+   * If true, removes the job when it successfully completes
+   * When given a number, it specifies the maximum amount of
+   * jobs to keep, or you can provide an object specifying max
+   * age and/or count to keep. It overrides whatever setting is used in the worker.
+   * Default behavior is to keep the job in the completed set.
+   */
+  removeOnComplete?: number | boolean | KeepJobs;
+  /**
+   * If true, removes the job when it fails after all attempts.
+   * When given a number, it specifies the maximum amount of
+   * jobs to keep, or you can provide an object specifying max
+   * age and/or count to keep. It overrides whatever setting is used in the worker.
+   * Default behavior is to keep the job in the failed set.
+   */
+  removeOnFail?: number | boolean | KeepJobs;
 }
