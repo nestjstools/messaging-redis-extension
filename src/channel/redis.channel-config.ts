@@ -21,6 +21,7 @@ export class RedisChannelConfig extends ChannelConfig {
     middlewares,
     normalizer,
     keyPrefix,
+    bullJobOptions,
   }: RedisChannelConfig) {
     super(
       name,
@@ -32,6 +33,7 @@ export class RedisChannelConfig extends ChannelConfig {
     this.connection = connection;
     this.queue = queue;
     this.keyPrefix = keyPrefix;
+    this.bullJobOptions = bullJobOptions;
   }
 }
 
