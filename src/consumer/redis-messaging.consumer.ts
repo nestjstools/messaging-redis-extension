@@ -1,6 +1,6 @@
 import { ConsumerMessage, IMessagingConsumer } from '@nestjstools/messaging';
 import { ConsumerMessageDispatcher } from '@nestjstools/messaging';
-import { Injectable, OnApplicationShutdown } from '@nestjs/common';
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { MessageConsumer } from '@nestjstools/messaging';
 import { ConsumerDispatchedMessageError } from '@nestjstools/messaging';
 import { RedisChannel } from '../channel/redis.channel';
@@ -9,7 +9,7 @@ import { Worker } from 'bullmq';
 @Injectable()
 @MessageConsumer(RedisChannel)
 export class RedisMessagingConsumer
-  implements IMessagingConsumer<RedisChannel>, OnApplicationShutdown
+  implements IMessagingConsumer<RedisChannel>, OnModuleDestroy
 {
   private channel?: RedisChannel = undefined;
   private worker?: Worker = undefined;
@@ -41,7 +41,7 @@ export class RedisMessagingConsumer
     return Promise.resolve();
   }
 
-  async onApplicationShutdown(signal?: string): Promise<any> {
+  async onModuleDestroy(): Promise<any> {
     if (this.channel) {
       await this.worker.close();
       await this.channel.queue.close();
