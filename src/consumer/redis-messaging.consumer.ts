@@ -38,6 +38,8 @@ export class RedisMessagingConsumer
     errored: ConsumerDispatchedMessageError,
     channel: RedisChannel,
   ): Promise<void> {
+    void errored;
+    void channel;
     return Promise.resolve();
   }
 

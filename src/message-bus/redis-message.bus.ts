@@ -8,6 +8,9 @@ export class RedisMessageBus implements IMessageBus {
   constructor(private readonly redisChannel: RedisChannel) {}
 
   async dispatch(message: RoutingMessage): Promise<void> {
-    await this.redisChannel.queue.add(message.messageRoutingKey, message.message);
+    await this.redisChannel.queue.add(
+      message.messageRoutingKey,
+      message.message,
+    );
   }
 }
