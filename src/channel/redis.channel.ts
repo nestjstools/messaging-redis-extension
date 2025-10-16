@@ -11,6 +11,10 @@ export class RedisChannel extends Channel<RedisChannelConfig> {
     this.queue = new Queue(config.queue, {
       connection: this.config.connection,
       prefix: config.keyPrefix,
+      defaultJobOptions: {
+        removeOnComplete: config.bullJobOptions?.removeOnComplete,
+        removeOnFail: config.bullJobOptions?.removeOnFail,
+      },
     });
   }
 }
