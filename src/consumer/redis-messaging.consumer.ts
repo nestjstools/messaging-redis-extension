@@ -25,7 +25,7 @@ export class RedisMessagingConsumer
     this.worker = new Worker(
       channel.config.queue,
       async (job) => {
-        dispatcher.dispatch(new ConsumerMessage(job.data, job.name));
+        await dispatcher.dispatch(new ConsumerMessage(job.data, job.name));
       },
       {
         connection: this.channel.config.connection,
