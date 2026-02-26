@@ -1,21 +1,23 @@
-import { ConsumerMessage, IMessagingConsumer } from '@nestjstools/messaging';
-import { ConsumerMessageDispatcher } from '@nestjstools/messaging';
+import {
+  ConsumerMessage,
+  IMessagingConsumer,
+  ConsumerMessageBus,
+  MessageConsumer,
+  ConsumerDispatchedMessageError,
+} from '@nestjstools/messaging';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { MessageConsumer } from '@nestjstools/messaging';
-import { ConsumerDispatchedMessageError } from '@nestjstools/messaging';
 import { RedisChannel } from '../channel/redis.channel';
 import { Worker } from 'bullmq';
 
 @Injectable()
 @MessageConsumer(RedisChannel)
 export class RedisMessagingConsumer
-  implements IMessagingConsumer<RedisChannel>, OnModuleDestroy
-{
+  implements IMessagingConsumer<RedisChannel>, OnModuleDestroy {
   private channel?: RedisChannel = undefined;
   private worker?: Worker = undefined;
 
   async consume(
-    dispatcher: ConsumerMessageDispatcher,
+    dispatcher: ConsumerMessageBus,
     channel: RedisChannel,
   ): Promise<void> {
     this.channel = channel;

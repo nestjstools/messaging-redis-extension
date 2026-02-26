@@ -1,15 +1,28 @@
 <p align="center">
-    <image src="nestjstools-logo.png" width="400">
+  <img src="nestjstools-logo.png" width="400" alt="NestJSTools Messaging Redis Extension for NestJS">
 </p>
 
-# @nestjstools/messaging-redis-extension
+# NestJS Redis Messaging Extension
 
-A NestJS library for managing asynchronous and synchronous messages with support for buses, handlers, channels, and consumers. This library simplifies building scalable and decoupled applications by facilitating robust message handling pipelines while ensuring flexibility and reliability.
+## `@nestjstools/messaging-redis-extension`
+
+A powerful **Redis messaging extension for NestJS** built on top of `@nestjstools/messaging`.
+
+This library enables **asynchronous and synchronous messaging**, supporting:
+
+* Message buses
+* Channels
+* Consumers
+* Distributed communication
+* Scalable microservices architecture
+
+It helps you build **decoupled, event-driven, and production-ready NestJS applications** using Redis as a transport layer.
 
 ---
 ## Documentation
 
-https://nestjstools.gitbook.io/nestjstools-messaging-docs
+* https://docs.nestjstools.com/messaging
+* https://nestjstools.com
 
 ---
 
@@ -134,3 +147,6 @@ This configuration provides a solid foundation for integrating redis as part of 
 
 ## Real world working example with RabbitMQ & Redis
 https://github.com/nestjstools/messaging-rabbitmq-example
+
+## Keywords
+nestjs messaging library, nestjs message bus, nestjs service bus, nestjs distributed systems, nestjs microservices messaging
